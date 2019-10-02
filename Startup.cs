@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using dotnetRestfulAPI.Models;
+
 namespace dotnetRestfulAPI
 {
     public class Startup
@@ -21,6 +24,9 @@ namespace dotnetRestfulAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApiContext>
+                (opt => opt.UseSqlServer(Configuration["Data:ApiDBconnection:ConnectionString"]));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
