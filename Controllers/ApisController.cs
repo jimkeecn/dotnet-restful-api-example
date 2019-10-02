@@ -22,5 +22,13 @@ namespace dotnetRestfulAPI.Controllers
             return _context.SimpleModel;
         }
 
+        [HttpPost]
+        public ActionResult<SimpleModel> CreateSimpleObject(SimpleModel model) {
+            _context.SimpleModel.Add(model);
+            _context.SaveChanges();
+
+            return CreatedAtAction("GetSimpleObject", new SimpleModel { Id = model.Id }, model);
+        }
+
     }
 }
