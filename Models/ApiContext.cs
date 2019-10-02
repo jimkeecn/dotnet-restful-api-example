@@ -9,6 +9,6 @@ namespace dotnetRestfulAPI.Models
 
         }
 
-        public DbSet<simpleModel> simpleModel { get; set; }
+        public DbSet<SimpleModel> SimpleModel { get; set; }
     }
 }

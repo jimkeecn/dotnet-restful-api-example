@@ -1,6 +1,6 @@
 namespace dotnetRestfulAPI.Models
 {
-    public class simpleModel
+    public class SimpleModel
     {
         public int Id { get; set; }
         public string HowTo { get; set; }

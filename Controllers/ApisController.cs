@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using dotnetRestfulAPI.Models;
 
 namespace dotnetRestfulAPI.Controllers
 {
@@ -7,12 +8,19 @@ namespace dotnetRestfulAPI.Controllers
     [Route("api/[controller]")]
     public class ApisController: ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> GetString() {
-            return new string[]
-            {
-                "This", "is", "first", "response"
-            };
+
+        private readonly ApiContext _context;
+
+        public ApisController(ApiContext context)
+        {
+            _context = context;
         }
+
+        //Get:      api/apis
+        [HttpGet]
+        public ActionResult<IEnumerable<SimpleModel>> GetSimpleObject() {
+            return _context.SimpleModel;
+        }
+
     }
 }
