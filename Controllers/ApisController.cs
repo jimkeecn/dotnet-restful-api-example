@@ -6,7 +6,7 @@ namespace dotnetRestfulAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApisController: ControllerBase
+    public class ApisController : ControllerBase
     {
 
         private readonly ApiContext _context;
@@ -22,7 +22,18 @@ namespace dotnetRestfulAPI.Controllers
             return _context.SimpleModel;
         }
 
-        [HttpPost]
+        [HttpGet("{id}")]
+        public ActionResult<SimpleModel> GetSimpleObject(int id)
+        {
+            var result = _context.SimpleModel.Find(id);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
+    [HttpPost]
         public ActionResult<SimpleModel> CreateSimpleObject(SimpleModel model) {
             _context.SimpleModel.Add(model);
             _context.SaveChanges();
