@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using dotnetRestfulAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnetRestfulAPI.Controllers
 {
@@ -33,12 +34,26 @@ namespace dotnetRestfulAPI.Controllers
             return result;
         }
 
-    [HttpPost]
+        [HttpPost]
         public ActionResult<SimpleModel> CreateSimpleObject(SimpleModel model) {
             _context.SimpleModel.Add(model);
             _context.SaveChanges();
 
             return CreatedAtAction("GetSimpleObject", new SimpleModel { Id = model.Id }, model);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateSimpleObject(int id, SimpleModel model)
+        {
+           if(id != model.Id)
+            {
+                return BadRequest("You have requested a bad request.");
+            }
+
+            _context.Entry(model).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
         }
 
     }
