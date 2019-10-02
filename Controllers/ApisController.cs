@@ -27,7 +27,7 @@ namespace dotnetRestfulAPI.Controllers
         public ActionResult<SimpleModel> GetSimpleObject(int id)
         {
             var result = _context.SimpleModel.Find(id);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }
@@ -45,7 +45,7 @@ namespace dotnetRestfulAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateSimpleObject(int id, SimpleModel model)
         {
-           if(id != model.Id)
+            if (id != model.Id)
             {
                 return BadRequest("You have requested a bad request.");
             }
@@ -54,6 +54,21 @@ namespace dotnetRestfulAPI.Controllers
             _context.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<SimpleModel> DeleteSimpleObject(int id)
+        {
+            var result = _context.SimpleModel.Find(id);
+            if(result == null)
+            {
+                return NotFound();
+            }
+
+            _context.SimpleModel.Remove(result);
+            _context.SaveChanges();
+
+            return result;
         }
 
     }
